@@ -2,12 +2,17 @@ import React, {Component} from 'react';
 
 class Auth extends Component {
   render() {
+    console.log(this.props.location.pathname);
     return (
       <div>
-        <input placeholder="username" />
-        <input placeholder="password" />
-        <button> Login </button>
-        <button> Register </button>
+        {this.props.location.pathname === '/' ? null : (
+          <div>
+            <input placeholder="username" />
+            <input placeholder="password" />
+            <button> Login </button>
+            <button> Register </button>
+          </div>
+        )}
       </div>
     );
   }
