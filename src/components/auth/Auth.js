@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 class Auth extends Component {
   state = {
@@ -12,8 +13,13 @@ class Auth extends Component {
     });
   };
 
+  createUser = () => {
+    axios.post('/api/register', this.state).then(instance => {
+      this.props.history.push('/dashboard');
+    });
+  };
+
   render() {
-    console.log(this.props.location.pathname);
     return (
       <div>
         {this.props.location.pathname === '/' ? null : (
@@ -31,7 +37,7 @@ class Auth extends Component {
               onChange={e => this.handleInput(e)}
             />
             <button> Login </button>
-            <button> Register </button>
+            <button onClick={() => this.createUser()}> Register </button>
           </div>
         )}
       </div>
