@@ -6,6 +6,8 @@ const Nav = props => {
   console.log(props);
   return (
     <div>
+      <img src={props.profilePicture} alt="profile_picture" />
+      <p>{props.username}</p>
       <Link to="/dashboard">
         <button> Home </button>
       </Link>
@@ -21,7 +23,7 @@ const Nav = props => {
 
 const mapStateToProps = state => ({
   username: state.username,
-  profilePicture: state.profilePicture,
+  profilePicture: state.profile_pic,
 });
 
 export default connect(
