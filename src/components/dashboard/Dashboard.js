@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import axios from 'axios';
+import {connect} from 'react-redux';
 
 class Dashboard extends Component {
   state = {
@@ -13,7 +15,16 @@ class Dashboard extends Component {
     this.setState({myPosts: !this.state.myPosts});
   };
 
+  getPosts = () => {
+    axios.get(
+      `/api/posts/${this.props.id}?userposts=${this.state.myPosts}&search=${
+        this.state.input
+      }`,
+    );
+  };
+
   render() {
+    console.log(this.props.id);
     const posts = this.state.posts.map(post => (
       <p key={post.id}>
         {post.username} {post.title} {post.profilePicture}
@@ -36,4 +47,8 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = ({id}) => ({
+  id,
+});
+
+export default connect(mapStateToProps)(Dashboard);
