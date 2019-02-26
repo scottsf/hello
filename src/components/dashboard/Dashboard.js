@@ -11,16 +11,24 @@ class Dashboard extends Component {
     ],
   };
 
+  componentDidMount() {
+    this.getPosts();
+  }
+
   toggleMyPost = () => {
     this.setState({myPosts: !this.state.myPosts});
   };
 
   getPosts = () => {
-    axios.get(
-      `/api/posts/${this.props.id}?userposts=${this.state.myPosts}&search=${
-        this.state.input
-      }`,
-    );
+    axios
+      .get(
+        `/api/posts/${this.props.id}?userposts=${this.state.myPosts}&search=${
+          this.state.input
+        }`,
+      )
+      .then(res => {
+        this.setState({posts: res.data});
+      });
   };
 
   render() {
@@ -33,7 +41,7 @@ class Dashboard extends Component {
     return (
       <div>
         <input onChange={e => this.setState({input: e.target.value})} />
-        <button>Search</button>
+        <button onClick={() => this.getPosts()}>Search</button>
         <button onClick={() => this.setState({input: ''})}>Reset</button>
         <input
           type="checkbox"
