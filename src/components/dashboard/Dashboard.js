@@ -31,6 +31,15 @@ class Dashboard extends Component {
       });
   };
 
+  resetSearch = id => {
+    let myPosts = !this.state.userposts;
+    axios
+      .get(`/api/posts/${id}?userposts=${myPosts}&search=${this.state.input}`)
+      .then(res => {
+        this.setState({posts: res.data, input: ''});
+      });
+  };
+
   render() {
     console.log(this.props.id);
     const posts = this.state.posts.map(post => (
